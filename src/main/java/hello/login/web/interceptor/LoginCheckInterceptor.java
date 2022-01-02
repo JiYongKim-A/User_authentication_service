@@ -18,7 +18,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         // 인터셉터 등록시에 경로 지정해줄검
 
         String requestURI = request.getRequestURI();
-        log.info("인증 체크 인터셉터 실행 {}",requestURI);
+        log.info("인증 확인 인터셉터 확인: {}",requestURI);
 
         HttpSession session = request.getSession();
         if (session == null || session.getAttribute(SessionConst.LOGIN_MEMBER)==null) {
