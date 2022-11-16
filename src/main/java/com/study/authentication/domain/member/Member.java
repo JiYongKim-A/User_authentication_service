@@ -1,4 +1,4 @@
-package com.study.authentication.domain;
+package com.study.authentication.domain.member;
 
 import lombok.Data;
 
