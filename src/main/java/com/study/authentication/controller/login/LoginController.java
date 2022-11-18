@@ -35,9 +35,9 @@ public class LoginController {
             return "login/loginForm";
         }
 
-        Member loginMember = loginService.login(form.getId(), form.getPw());
+        Member loginMember = loginService.login(form.getId(), form.getPassword());
         if (loginMember == null) {
-            log.info("[loginController Log] : 일치하지 않은 로그인 시도 ID = {}, PW = {}", form.getId(), form.getPw());
+            log.info("[loginController Log] : 일치하지 않은 로그인 시도 ID = {}, PW = {}", form.getId(), form.getPassword());
             bindingResult.reject("loginFail", "아이디 혹은 비밀번호가 맞지 않습니다.");
             return "login/loginForm";
         }
@@ -47,7 +47,7 @@ public class LoginController {
         return "redirect:/";
     }
 
-    @GetMapping("logout")
+    @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         sessionManager.expireSession(request);
         return "redirect:/";
