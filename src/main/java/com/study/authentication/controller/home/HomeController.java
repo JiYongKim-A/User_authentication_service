@@ -21,7 +21,7 @@ public class HomeController {
             return "home";
         }
         Member member = (Member) sessionManager.getSession(request);
-        model.addAttribute("member", member);
+        model.addAttribute("memberName", member.getName());
         return "loginHome";
     }
 

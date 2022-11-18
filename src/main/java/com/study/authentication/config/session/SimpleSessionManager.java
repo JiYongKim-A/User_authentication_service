@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 // 자체적 세션 구동 방식
-public class SimpleSessionManager {
+public class SimpleSessionManager implements SessionManager{
     public static final String SESSION_COOKIE_NAME = "simpleSessionId";
     private Map<String, Object> sessionStore = new ConcurrentHashMap<>();
 
@@ -49,7 +49,7 @@ public class SimpleSessionManager {
     }
 
     // 세션 만료
-    public void expire(HttpServletRequest request) {
+    public void expireSession (HttpServletRequest request) {
         Cookie sessionCookie = findCookie(request, SESSION_COOKIE_NAME);
         if (sessionCookie != null) {
             sessionStore.remove(sessionCookie.getValue());
