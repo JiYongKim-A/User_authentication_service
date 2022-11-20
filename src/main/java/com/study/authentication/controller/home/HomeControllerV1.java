@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequiredArgsConstructor
-public class HomeController {
+public class HomeControllerV1 {
     private final SimpleSessionManager sessionManager;
 
     // 자체적 SessionManager 사용 방법

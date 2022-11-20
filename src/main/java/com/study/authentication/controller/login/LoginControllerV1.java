@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-public class LoginController {
+public class LoginControllerV1 {
     private final LoginService loginService;
     private final SessionManager sessionManager;
 
