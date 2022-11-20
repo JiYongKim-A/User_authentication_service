@@ -42,7 +42,11 @@ public class MemberRepositoryImpl implements MemberRepository{
     public Member updateMemberByManageSeq(Long manageSeq, Member updatedMember) {
         Optional<Member> optionalMember = findMemberByManageSeq(manageSeq);
         if(optionalMember.isPresent()){
-            store.put(optionalMember.get().getManageSeq(), updatedMember);
+            Member member = optionalMember.get();
+            member.setId(updatedMember.getId());
+            member.setPassword(updatedMember.getPassword());
+            member.setName(updatedMember.getName());
+            member.setTel(updatedMember.getTel());
             return updatedMember;
         }
         return null;
