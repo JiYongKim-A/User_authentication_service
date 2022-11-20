@@ -57,6 +57,9 @@
             <label for="tel">회원 전화 번호</label>
             <input type="text" id="tel" name="tel" class="form-control" th:field="*{tel}">
         </div>
+        <div class="field-error" th:errors="*{tel}">
+            전화 번호 확인 오류
+        </div>
 
 
         <hr class="my-4">

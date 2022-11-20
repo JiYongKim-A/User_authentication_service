@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Slf4j
 @Controller
@@ -35,12 +37,12 @@ public class MemberControllerV1 {
     public String memberEditForm(HttpServletRequest request, Model model) {
         Member member = (Member) sessionManager.getSession(request);
 
-        model.addAttribute("member", new MemberEditForm(member.getId(), "","",member.getName(),member.getTel()));
+        model.addAttribute("member", new MemberEditForm(member.getId(), "", "", member.getName(), member.getTel()));
         return "member/memberInfoEditForm";
     }
 
     @PostMapping("/memberInfo/edit")
-    public String memberEdit(@Validated @ModelAttribute("member")MemberEditForm form,
+    public String memberEdit(@Validated @ModelAttribute("member") MemberEditForm form,
                              BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             log.info("[MemberControllerV1 Log] : 회원 정보 수정 에러");
@@ -48,12 +50,17 @@ public class MemberControllerV1 {
         }
 
         if (!form.getPassword().equals(form.getPasswordCheck())) {
-            bindingResult.addError(new FieldError("member","passwordCheck","비밀번호가 동일하지 않습니다."));
+            bindingResult.addError(new FieldError("member", "passwordCheck", "비밀번호가 동일하지 않습니다."));
+            return "member/memberInfoEditForm";
+        }
+        if(!validPhoneNumber(form.getTel())){
+            bindingResult.addError(new FieldError("member","tel","전화번호 형식을 일치시켜 주세요."));
+            return "member/memberInfoEditForm";
         }
 
         //success logic
         Optional<Member> findMem = memberRepository.findMemberById(form.getId());
-        if(findMem.isEmpty()){
+        if (findMem.isEmpty()) {
             return "redirect:/logout";
         }
         memberRepository.updateMemberByManageSeq(findMem.get().getManageSeq(),
@@ -61,4 +68,14 @@ public class MemberControllerV1 {
         return "redirect:/memberInfo";
     }
 
+    public static boolean validPhoneNumber(String number) {
+        Pattern pattern = Pattern.compile("\\d{3}-\\d{4}-\\d{4}");
+        Matcher matcher = pattern.matcher(number);
+        if (matcher.matches()) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 }
