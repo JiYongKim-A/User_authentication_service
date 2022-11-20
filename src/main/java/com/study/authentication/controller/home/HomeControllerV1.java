@@ -1,5 +1,6 @@
 package com.study.authentication.controller.home;
 
+import com.study.authentication.config.session.SessionManager;
 import com.study.authentication.config.session.SimpleSessionManager;
 import com.study.authentication.domain.member.Member;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequiredArgsConstructor
 public class HomeControllerV1 {
-    private final SimpleSessionManager sessionManager;
+    private final SessionManager sessionManager;
 
     // 자체적 SessionManager 사용 방법
     @GetMapping("/")
