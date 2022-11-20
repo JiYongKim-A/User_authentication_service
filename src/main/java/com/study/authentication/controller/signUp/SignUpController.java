@@ -31,11 +31,14 @@ public class SignUpController {
     @PostMapping("/signUp")
     public String signUp(@Validated @ModelAttribute("member") SignUpForm form, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            log.info("[SignUpController Log] : 회원 가입 에러");
+//            log.info("[SignUpController Log] : 회원 가입 에러");
+            log.info("err = {}",bindingResult);
             return "/signUp/signUp";
+
         }
         if(signUpService.idCheck(form.getId())){
             bindingResult.addError(new FieldError("member", "id", "이미 존재하는 ID 입니다."));
+            log.info("err = {}",bindingResult);
             return "/signUp/signUp";
         }
         if (!form.getPassword().equals(form.getPasswordCheck())) {
