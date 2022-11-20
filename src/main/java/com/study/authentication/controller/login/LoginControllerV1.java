@@ -36,7 +36,6 @@ public class LoginControllerV1 {
         if (bindingResult.hasErrors()) {
             return "login/loginForm";
         }
-
         Member loginMember = loginService.login(form.getId(), form.getPassword());
         if (loginMember == null) {
             log.info("[loginController Log] : 일치하지 않은 로그인 시도 ID = {}, PW = {}", form.getId(), form.getPassword());

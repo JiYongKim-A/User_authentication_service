@@ -17,7 +17,7 @@ public class LoginCheckFilter implements Filter {
 
     //미제한 경로 지정
     private static final String[] whiteList = {"/", "/signUp", "/login", "/logout", "/css/*"};
-    private SessionManager sessionManager;
+    private final SessionManager sessionManager;
 
     public LoginCheckFilter(SessionManager sessionManager) {
         this.sessionManager = sessionManager;
