@@ -1,7 +1,8 @@
 package com.study.authentication.config;
 
-import com.study.authentication.config.filter.LoginCheckFilter;
-import com.study.authentication.config.interceptor.LoginCheckInterceptor;
+import com.study.authentication.config.filter.LoginCheckFilterV1;
+import com.study.authentication.config.filter.LoginCheckFilterV2;
+import com.study.authentication.config.interceptor.LoginCheckInterceptorV1;
 import com.study.authentication.config.session.SessionManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -21,28 +22,36 @@ public class WebConfig implements WebMvcConfigurer {
 
     // filter setting
 //    @Bean
-    public FilterRegistrationBean<Filter> loginCheckFilter() {
+    public FilterRegistrationBean<Filter> loginCheckFilterV1() {
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
-        filterRegistrationBean.setFilter(new LoginCheckFilter(sessionManager));
+        filterRegistrationBean.setFilter(new LoginCheckFilterV1(sessionManager));
+        filterRegistrationBean.setOrder(1);
+        filterRegistrationBean.addUrlPatterns("/*");
+        return filterRegistrationBean;
+    }
+    @Bean
+    public FilterRegistrationBean<Filter> loginCheckFilterV2() {
+        FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
+        filterRegistrationBean.setFilter(new LoginCheckFilterV2());
         filterRegistrationBean.setOrder(1);
         filterRegistrationBean.addUrlPatterns("/*");
         return filterRegistrationBean;
     }
 
     // interceptor setting
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        //체인 형식으로 설정
-        registry.addInterceptor(new LoginCheckInterceptor(sessionManager))
-                .order(1)
-                .addPathPatterns("/**")
-                .excludePathPatterns(
-                        "/",
-                        "/signUp",
-                        "/login",
-                        "/logout",
-                        "/css/*",
-                        "/error"
-                );
-    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        //체인 형식으로 설정
+//        registry.addInterceptor(new LoginCheckInterceptorV1(sessionManager))
+//                .order(1)
+//                .addPathPatterns("/**")
+//                .excludePathPatterns(
+//                        "/",
+//                        "/signUp",
+//                        "/login",
+//                        "/logout",
+//                        "/css/*",
+//                        "/error"
+//                );
+//    }
 }

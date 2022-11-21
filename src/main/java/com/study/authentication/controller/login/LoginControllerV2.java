@@ -1,5 +1,6 @@
 package com.study.authentication.controller.login;
 
+import com.study.authentication.config.session.SessionConst;
 import com.study.authentication.config.session.SessionManager;
 import com.study.authentication.domain.member.Member;
 import com.study.authentication.service.login.LoginService;
@@ -12,16 +13,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Slf4j
-//@Controller
+@Controller
 @RequiredArgsConstructor
-public class LoginControllerV1 {
+public class LoginControllerV2 {
     private final LoginService loginService;
-    private final SessionManager sessionManager;
 
     @GetMapping("/login")
     public String loginForm(@ModelAttribute("loginForm") LoginForm form) {
@@ -31,7 +30,7 @@ public class LoginControllerV1 {
     @PostMapping("/login")
     public String login(@Validated @ModelAttribute("loginForm") LoginForm form,
                         BindingResult bindingResult,
-                        HttpServletResponse response,
+                        HttpServletRequest request,
                         @RequestParam(defaultValue = "/")String redirectURL) {
         if (bindingResult.hasErrors()) {
             return "login/loginForm";
@@ -44,13 +43,17 @@ public class LoginControllerV1 {
         }
 
         //success logic
-        sessionManager.createSession(loginMember, response);
+        HttpSession session = request.getSession();
+        session.setAttribute(SessionConst.LOGIM_MEMBER, loginMember);
         return "redirect:" + redirectURL;
     }
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
-        sessionManager.expireSession(request);
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
         return "redirect:/";
     }
 }

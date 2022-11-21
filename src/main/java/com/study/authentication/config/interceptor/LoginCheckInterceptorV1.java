@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
-public class LoginCheckInterceptor implements HandlerInterceptor {
+public class LoginCheckInterceptorV1 implements HandlerInterceptor {
     private final SessionManager sessionManager;
 
-    public LoginCheckInterceptor(SessionManager sessionManager) {
+    public LoginCheckInterceptorV1(SessionManager sessionManager) {
         this.sessionManager = sessionManager;
     }
 

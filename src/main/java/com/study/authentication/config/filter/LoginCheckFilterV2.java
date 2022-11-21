@@ -1,27 +1,20 @@
 package com.study.authentication.config.filter;
 
 import com.study.authentication.config.session.SessionConst;
-import com.study.authentication.config.session.SessionManager;
 import com.study.authentication.domain.member.Member;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.PatternMatchUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Slf4j
-public class LoginCheckFilter implements Filter {
-
-    //미제한 경로 지정
+public class LoginCheckFilterV2 implements Filter {
+    // 미제한 경로 지정
     private static final String[] whiteList = {"/", "/signUp", "/login", "/logout", "/css/*"};
-    private final SessionManager sessionManager;
-
-    public LoginCheckFilter(SessionManager sessionManager) {
-        this.sessionManager = sessionManager;
-    }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -37,8 +30,8 @@ public class LoginCheckFilter implements Filter {
 
             if (isLoginCheckPath(requestURI)) {
                 // filter logic
-                Member member = (Member)sessionManager.getSession(httpRequest);
-                if (member == null) {
+                HttpSession session = httpRequest.getSession(false);
+                if (session == null || session.getAttribute(SessionConst.LOGIM_MEMBER) == null) {
                     log.info("[미인증 사용자 요청] : 접속 URI = {}", requestURI);
                     httpResponse.sendRedirect("/login?redirectURL=" + requestURI);
                     return;
@@ -60,4 +53,3 @@ public class LoginCheckFilter implements Filter {
         return !PatternMatchUtils.simpleMatch(whiteList, requestURI);
     }
 }
-
