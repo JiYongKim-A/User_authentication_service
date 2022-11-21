@@ -43,6 +43,8 @@
   - V1 자체적 SessionManager 방식
   - V2 스프링 프레임워크에서 제공하는 Session 방식 
 
+<br>
+
 * 접근 제한 필터링
   - filter를 통한 미인증 사용자 접근 제한 
     - V1 자체적 SessionManager 방식
@@ -53,36 +55,47 @@
     - V2 스프링 프레임워크에서 제공하는 Session 방식  
 
 
-* view template
-  - thymeleaf 사용
-  - bootstrap 사용
+<br>
+
+###  ⃝ Member 클래스 다이어그램
+
+<img width="167" alt="스크린샷 2022-11-21 오후 5 13 22" src="https://user-images.githubusercontent.com/81874493/203006591-d72a1720-2aee-4140-a8c8-687632b2dedc.png">
+
+
 
 <br>
+
+###  ⃝ 회원가입, 로그인 Service 클래스 다이어그램
+
+<img width="404" alt="스크린샷 2022-11-21 오후 5 12 20" src="https://user-images.githubusercontent.com/81874493/203006078-0a38750d-6544-4070-918e-99feb2478643.png">
+
+<br>
+
+###  ⃝ 컨트롤러 클래스 다이어그램
+
+<img width="1181" alt="스크린샷 2022-11-21 오후 5 17 15" src="https://user-images.githubusercontent.com/81874493/203005947-b4f567bd-4b7e-414d-a5b4-9fcd2ffc3a73.png">
+
+<br>
+
 
 ## 📺 프로젝트 실행 화면
   
   [회원 가입]
   
-  <img width="602" alt="스크린샷 2022-01-03 오전 12 02 32" src="https://user-images.githubusercontent.com/81874493/147880662-d38cdecb-2e96-40dd-bdcb-ecfdaab7aa4c.png">
-  
+  <img width="457" alt="스크린샷 2022-11-21 오후 5 52 52" src="https://user-images.githubusercontent.com/81874493/203006927-783fa1d5-0d2a-45b4-b327-90f71d9f00d1.png">
+
 <br>
 
   [로그인]
   
-  <img width="620" alt="스크린샷 2022-01-03 오전 12 02 40" src="https://user-images.githubusercontent.com/81874493/147880691-2f2cdbb9-bc11-496b-80df-bdb3fc6516e2.png">
+<img width="467" alt="스크린샷 2022-11-21 오후 5 52 59" src="https://user-images.githubusercontent.com/81874493/203006948-b60fc842-f79e-4cb6-8582-8bbfdf9350d1.png">
 
-
-
-
-
-# login Service
-## Spring Framework를 이용한 Web Application 공부
 
 <br>
 
-login Service 구성 
+  [회원 정보 수정]
 
-
+<img width="460" alt="스크린샷 2022-11-21 오후 5 53 10" src="https://user-images.githubusercontent.com/81874493/203007021-8acec50c-ce5b-4e4b-b627-3eee40324bdc.png">
 
 
 
